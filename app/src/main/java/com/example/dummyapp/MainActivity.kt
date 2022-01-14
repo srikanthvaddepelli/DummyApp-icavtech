@@ -2,8 +2,13 @@ package com.example.dummyapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.dummyapp.database.AllUsersSharedPrefHelper
+import com.example.dummyapp.fragments.HomeFragment
+import com.example.dummyapp.fragments.LoginFragment
+import com.example.dummyapp.fragments.SignUpFragment
 import com.example.dummyapp.fragments.SplashFragment
 import com.example.dummyapp.interfaces.Actions
 
@@ -15,12 +20,11 @@ class MainActivity : AppCompatActivity(),Actions {
     }
 
     private fun setSplashScreen(){
-       setFragment(SplashFragment(),true)
+       setFragment(SplashFragment(),true,"splash")
     }
 
-    private fun setFragment(fragment: Fragment,shouldReplace: Boolean){
-        val tag = fragment.javaClass.toString()
-        val fragmentManager = supportFragmentManager
+    private fun setFragment(fragment: Fragment,shouldReplace: Boolean,tag: String){
+         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         if(shouldReplace){
             fragmentTransaction.replace(R.id.main_container, fragment)
@@ -33,15 +37,23 @@ class MainActivity : AppCompatActivity(),Actions {
     }
 
     override fun onLogoutClicked() {
-        TODO("Not yet implemented")
+        AllUsersSharedPrefHelper.getInstance(applicationContext).setUserLoggedOut()
     }
 
     override fun onSuccessfulLogin() {
-        TODO("Not yet implemented")
+        setFragment(HomeFragment(),true,"home")
     }
 
     override fun onSuccessfulRegistration() {
-        TODO("Not yet implemented")
+        openLoginScreen()
+    }
+
+    override fun openSignupScreen() {
+        setFragment(SignUpFragment(),true,"login")
+    }
+
+    override fun openLoginScreen() {
+        setFragment(LoginFragment(),false,"login")
     }
 
 

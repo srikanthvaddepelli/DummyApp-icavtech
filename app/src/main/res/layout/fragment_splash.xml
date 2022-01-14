@@ -8,6 +8,7 @@
     tools:context=".fragments.SplashFragment">
 
      <TextView
+         android:id="@+id/label"
          app:layout_constraintTop_toTopOf="parent"
          app:layout_constraintBottom_toBottomOf="parent"
          app:layout_constraintLeft_toLeftOf="parent"
@@ -17,5 +18,7 @@
          android:textColor="@color/white"
          android:textSize="20sp"
         android:text="@string/welcome_screen_splash" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

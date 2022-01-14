@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.dummyapp.R
 import com.example.dummyapp.database.AllUsersSharedPrefHelper
+import com.example.dummyapp.interfaces.Actions
 import com.example.dummyapp.model.UserModel
 import com.google.android.gms.location.LocationServices
 
@@ -32,6 +33,7 @@ class SignUpFragment : Fragment() {
     private var rbMale: RadioButton? = null
     private var rbFemale: RadioButton? = null
     private var btnSignup: View? = null
+    private var btnLogin: View? = null
     private var lat: Double = 0.0
     private var long: Double = 0.0
 
@@ -59,6 +61,7 @@ class SignUpFragment : Fragment() {
         rbMale = view.findViewById(R.id.rb_male)
         rbFemale = view.findViewById(R.id.rb_female)
         btnSignup = view.findViewById(R.id.btn_signup)
+        btnLogin = view.findViewById(R.id.btn_login)
         btnSignup?.setOnClickListener {
 
             if (isFormValid()) {
@@ -66,6 +69,13 @@ class SignUpFragment : Fragment() {
             }
 
         }
+
+        btnLogin?.setOnClickListener {
+            if(activity is Actions){
+                    (activity as Actions).openLoginScreen()
+                }
+            }
+
     }
 
     private fun isFormValid(): Boolean {
@@ -75,7 +85,7 @@ class SignUpFragment : Fragment() {
 
     private fun saveToDb() {
 
-        AllUsersSharedPrefHelper.getInstance(requireContext())?.saveJSON(
+        AllUsersSharedPrefHelper.getInstance(requireContext()).saveJSON(
             edtPhone?.text.toString(),
             UserModel(
                 edtName?.text.toString(),
@@ -83,9 +93,14 @@ class SignUpFragment : Fragment() {
                 edtPhone?.text.toString(),
                 edtAddress?.text.toString(),
                 if (rbMale?.isChecked == true) "male" else "female",
-                ""
+                latLong = "$lat,$long"
             )
         )
+
+        if(activity is Actions){
+            (activity as Actions).onSuccessfulRegistration()
+        }
+
 
     }
 
