@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(),Actions {
 
     override fun onLogoutClicked() {
         AllUsersSharedPrefHelper.getInstance(applicationContext).setUserLoggedOut()
+        openSignupScreen()
     }
 
     override fun onSuccessfulLogin() {

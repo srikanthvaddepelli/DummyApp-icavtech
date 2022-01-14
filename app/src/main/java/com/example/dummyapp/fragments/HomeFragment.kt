@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.dummyapp.R
 import com.example.dummyapp.database.AllUsersSharedPrefHelper
+import com.example.dummyapp.interfaces.Actions
 import java.lang.StringBuilder
 
 class HomeFragment : Fragment() {
@@ -32,6 +33,12 @@ class HomeFragment : Fragment() {
             stringBuilder.append("\n\n")
         }
         tv.text = stringBuilder.toString()
+
+        view.findViewById<View>(R.id.btn_logout).setOnClickListener {
+            if(activity is Actions){
+                (activity as Actions).onLogoutClicked()
+            }
+        }
     }
 
 }
