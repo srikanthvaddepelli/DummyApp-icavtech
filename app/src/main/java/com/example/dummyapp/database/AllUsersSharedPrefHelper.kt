@@ -28,7 +28,7 @@ class AllUsersSharedPrefHelper(private val context: Context) {
         )
     }
 
-    private fun saveJSON(key: String, userModel: UserModel) {
+    fun saveJSON(key: String, userModel: UserModel) {
         val jsonString = Gson().toJson(userModel)
         val editor = sharedPreferences.edit()
         editor.putString(key, jsonString)
