@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.dummyapp.fragments.SplashFragment
+import com.example.dummyapp.interfaces.Actions
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),Actions {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,6 +30,18 @@ class MainActivity : AppCompatActivity() {
         }
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         fragmentTransaction.commitAllowingStateLoss()
+    }
+
+    override fun onLogoutClicked() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSuccessfulLogin() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSuccessfulRegistration() {
+        TODO("Not yet implemented")
     }
 
 
